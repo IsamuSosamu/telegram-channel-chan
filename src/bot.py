@@ -30,21 +30,35 @@ def main():
 
     updater.idle()
 
+
 def send_message(bot,update):
     """Send message based on message type"""
-
+    print(update.message)
     if update.message.text:
-        print('attemting to send')
-        print(bot.sendMessage(chat_id=os.environ['CHANNELBOT_CHANNEL'],
+        bot.sendMessage(chat_id=os.environ['CHANNELBOT_CHANNEL'],
                         text=update.message.text,
                         disable_notification=True
-                        ))
+                        )
     elif update.message.sticker:
-        print(bot.sendSticker(chat_id=os.environ['CHANNELBOT_CHANNEL'],
+        bot.sendSticker(chat_id=os.environ['CHANNELBOT_CHANNEL'],
                          sticker=update.message.sticker,
+                         disable_notification=True)
+    elif update.message.photo:
+        print(bot.sendPhoto(chat_id=os.environ['CHANNELBOT_CHANNEL'],
+                         photo=update.message.photo[0]['file_id'],
                          disable_notification=True))
-
-
+    elif update.message.voice:
+        print(bot.sendVoice(chat_id=os.environ['CHANNELBOT_CHANNEL'],
+                  voice=update.message.voice['file_id'],
+                  disable_notification=True))
+    elif update.message.video:
+        print(bot.sendVideo(chat_id=os.environ['CHANNELBOT_CHANNEL'],
+                  video=update.message.video,
+                  disable_notification=True))
+    elif update.message.video_note:
+        print(bot.sendVideoNote(chat_id=os.environ['CHANNELBOT_CHANNEL'],
+              video_note=update.message.video_note['file_id'],
+              disable_notification=True))
 
 if __name__ == '__main__':
     main()
