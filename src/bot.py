@@ -35,14 +35,14 @@ def send_message(bot,update):
     """Send message based on message type"""
     print(update.message)
     if update.message.text:
-        bot.sendMessage(chat_id=os.environ['CHANNELBOT_CHANNEL'],
+        print(bot.sendMessage(chat_id=os.environ['CHANNELBOT_CHANNEL'],
                         text=update.message.text,
                         disable_notification=True
-                        )
+                        ))
     elif update.message.sticker:
-        bot.sendSticker(chat_id=os.environ['CHANNELBOT_CHANNEL'],
-                         sticker=update.message.sticker,
-                         disable_notification=True)
+        print(bot.sendSticker(chat_id=os.environ['CHANNELBOT_CHANNEL'],
+                         sticker=update.message.sticker['file_id'],
+                         disable_notification=True))
     elif update.message.photo:
         print(bot.sendPhoto(chat_id=os.environ['CHANNELBOT_CHANNEL'],
                          photo=update.message.photo[0]['file_id'],
